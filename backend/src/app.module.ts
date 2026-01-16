@@ -15,11 +15,15 @@ import { ConfigModule } from '@nestjs/config';
       transport: {
         host: 'smtp.gmail.com',
         port: 465,
+        ignoreTLS: true,
         secure: true,
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
         },
+        connectionTimeout: 10_000,
+        greetingTimeout: 10_000,
+        socketTimeout: 10_000,
       },
     }),
     AuthModule,
