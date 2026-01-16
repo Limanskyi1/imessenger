@@ -13,7 +13,7 @@ import { ConfigModule } from '@nestjs/config';
     MikroOrmModule.forRoot(config),
     MailerModule.forRoot({
       transport: {
-        service: process.env.EMAIL_SERVICE,
+        host: 'smtp.gmail.com',
         port: 465,
         secure: true,
         auth: {
