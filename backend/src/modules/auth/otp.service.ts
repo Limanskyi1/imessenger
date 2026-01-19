@@ -1,10 +1,10 @@
-import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import * as crypto from 'crypto';
+import { Resend } from 'resend';
 
 @Injectable()
 export class OtpService {
-  constructor(private readonly mailService: MailerService) {}
+  constructor() {}
 
   generateCode(): string {
     return Math.floor(100000 + Math.random() * 900000).toString();
@@ -16,7 +16,7 @@ export class OtpService {
 
   createOtpBody(email: string, code: string) {
     return {
-      from: '"Imessnger" <no-reply@myapp.com>',
+      from: 'onboarding@resend.dev',
       to: email,
       subject: 'Your OTP Code',
       text: `Your OTP code is: ${code}. It will expire in 5 minutes.`,
@@ -25,9 +25,11 @@ export class OtpService {
   }
 
   async sendOtp(email: string, code: string) {
+    const resend = new Resend(process.env.RESEND_API_KEY);
     try {
       const body = this.createOtpBody(email, code);
-      await this.mailService.sendMail(body);
+      const resp = await resend.emails.send(body);
+      console.log(resp);
     } catch (error) {
       console.error('Error sending email', error);
       throw new InternalServerErrorException('Failed to send OTP email');
