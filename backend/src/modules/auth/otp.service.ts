@@ -28,8 +28,7 @@ export class OtpService {
     const resend = new Resend(process.env.RESEND_API_KEY);
     try {
       const body = this.createOtpBody(email, code);
-      const resp = await resend.emails.send(body);
-      console.log(resp);
+      await resend.emails.send(body);
     } catch (error) {
       console.error('Error sending email', error);
       throw new InternalServerErrorException('Failed to send OTP email');
