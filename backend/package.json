@@ -10,7 +10,7 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "docker:dev": "docker compose -f docker-compose.dev.yml --env-file .env.dev up -d",
+    "docker:dev": "docker compose -f docker-compose.dev.yml --env-file .env.development up -d",
     "docker:dev:down": "docker compose -f docker-compose.dev.yml down",
     "mikro:migration:create": "npx mikro-orm migration:create --config mikro-orm.config.ts",
     "mikro:migration:up": "npx mikro-orm migration:up --config mikro-orm.config.ts",

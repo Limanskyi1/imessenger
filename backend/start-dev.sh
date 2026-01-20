@@ -1,0 +1,1 @@
+docker ps -q | xargs -r docker stop && npm run docker:dev && npm run start:dev
